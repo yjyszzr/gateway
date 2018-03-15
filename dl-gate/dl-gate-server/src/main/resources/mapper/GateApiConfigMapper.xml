@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dl.gate.dao.GateApiConfigDao">
+    <resultMap id="BaseResultMap" type="com.dl.gate.model.GateApiConfig">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="api" jdbcType="VARCHAR" property="api"/>
+        <result column="can_access" jdbcType="BIT" property="canAccess"/>
+        <result column="auth_filter" jdbcType="BIT" property="authFilter"/>
+        <result column="param_filter" jdbcType="BIT" property="paramFilter"/>
+    </resultMap>
+    <select id="selectAll" resultMap="BaseResultMap">
+        select id, api, can_access, auth_filter,  param_filter from dl_gate_api_config
+    </select>
+</mapper>
