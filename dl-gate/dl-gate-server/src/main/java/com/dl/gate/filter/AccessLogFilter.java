@@ -45,6 +45,7 @@ public class AccessLogFilter extends ZuulFilter {
         HttpServletRequest request = ctx.getRequest();
         String url = request.getRequestURI();
         try {
+        	log.info("in AccessLogFilter:"+url);
             stringRedisTemplate.opsForHash().increment("access:" + url, DateUtil.getCurrentDate(DateUtil.yyyyMMdd), 1);
         } catch (Exception e) {
             log.warn("增加url访问记录失败", e);
