@@ -87,7 +87,7 @@ public class DlAuthFilter extends ZuulFilter {
         }
 
         //判断url是否禁止通过网关访问
-        if (!gateConfig.allowAccess(requestUri) && !"dev1".equals(env)) {
+        if (!gateConfig.allowAccess(requestUri) && !"dev".equals(env)) {
             ctx.setResponseBody(JSONHelper.bean2json(ResultGenerator.genForbiddenResult("非法请求")));
             ctx.setResponseStatusCode(HttpStatus.SC_FORBIDDEN);
             ctx.addZuulResponseHeader("content-type", MediaType.APPLICATION_JSON_UTF8_VALUE);
@@ -100,7 +100,7 @@ public class DlAuthFilter extends ZuulFilter {
         log.info("请求地址为{}， token为{}", requestUri, authToken);
         BaseContextHandler.setToken(null);
         // 不进行拦截的地址,直接放过
-        boolean needAuth = gateConfig.needAuth(requestUri) && !"dev1".equalsIgnoreCase(env);
+        boolean needAuth = gateConfig.needAuth(requestUri) && !"dev".equalsIgnoreCase(env);
         try {
             if (StringUtils.isBlank(authToken)) {
                 if (needAuth) {
