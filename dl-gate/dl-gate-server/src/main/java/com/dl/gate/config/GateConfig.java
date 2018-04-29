@@ -94,7 +94,9 @@ public class GateConfig {
         log.info("开始加载网关配置");
         List<GateApiConfig> gateApiConfigs = gateApiConfigDao.selectAll();
         allowUrl = gateApiConfigs.stream().filter(gateApiConfig -> gateApiConfig.getCanAccess()).map(GateApiConfig::getApi).collect(Collectors.toSet());
+        log.info("&&&&&&&&allowUrl size="+allowUrl.size());
         authUrl = gateApiConfigs.stream().filter(GateApiConfig::getAuthFilter).map(GateApiConfig::getApi).collect(Collectors.toSet());
+        log.info("&&&&&&&&authUrl size="+authUrl.size());
         paramNotTransUrl = gateApiConfigs.stream().filter(gateApiConfig -> !gateApiConfig.getParamFilter()).map(GateApiConfig::getApi).collect(Collectors.toSet());
         log.info("网关加载结束");
     }

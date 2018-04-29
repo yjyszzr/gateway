@@ -1,3 +1,5 @@
+
+DROP TABLE IF EXISTS `dl_gate_api_config`;
 CREATE TABLE dl_gate_api_config
 (
 	id INT AUTO_INCREMENT
@@ -37,20 +39,20 @@ insert into dl_gate_api_config values(19, '/payment/withdraw/add', 0, 1, 1, '添
 insert into dl_gate_api_config values(20, '/payment/withdraw/list', 1, 1, 1, '提现进度');
 insert into dl_gate_api_config values(21, '/payment/wxpay/notify', 0, 0, 0, '回调');
 
-insert into dl_gate_api_config values(22, '/dl/article/detail', 1, 0, 1, '资讯详情');
-insert into dl_gate_api_config values(23, '/dl/article/list', 1, 0, 1, '资讯首页');
-insert into dl_gate_api_config values(24, '/dl/article/queryArticlesByIds', 1, 0, 1, '前端不用，根据文章id集合查询文章列表');
-insert into dl_gate_api_config values(25, '/dl/article/relatedArticles', 1, 0, 1, '相关文章');
-insert into dl_gate_api_config values(26, '/dl/league/match/asia/list', 1, 0, 1, '亚盘信息');
-insert into dl_gate_api_config values(27, '/dl/league/match/asia/refresh', 0, 0, 1, '亚盘信息刷新');
-insert into dl_gate_api_config values(28, '/dl/league/match/dao/xiao/list', 1, 0, 1, '大小球信息');
-insert into dl_gate_api_config values(29, '/dl/league/match/europe/list', 1, 0, 1, '欧赔信息');
-insert into dl_gate_api_config values(30, '/dl/league/match/europe/refresh', 0, 0, 1, '欧赔刷新 ');
-insert into dl_gate_api_config values(31, '/dl/league/match/result/queryMatchResultByPlayCode', 0, 0, 1, '联赛结果');
-insert into dl_gate_api_config values(32, '/dl/league/match/result/queryMatchResultsByPlayCodes', 0, 0, 1, '联赛结果');
-insert into dl_gate_api_config values(33, '/dl/league/match/result/refresh', 0, 0, 1, '联赛结果刷新');
-insert into dl_gate_api_config values(34, '/dl/league/team/list', 1, 0, 1, '球队信息');
-insert into dl_gate_api_config values(35, '/dl/match/support/refresh', 0, 0, 1, '支持率的刷新');
+insert into dl_gate_api_config values(22, '/lottery/dl/article/detail', 1, 0, 1, '资讯详情');
+insert into dl_gate_api_config values(23, '/lottery/dl/article/list', 1, 0, 1, '资讯首页');
+insert into dl_gate_api_config values(24, '/lottery/dl/article/queryArticlesByIds', 1, 0, 1, '前端不用，根据文章id集合查询文章列表');
+insert into dl_gate_api_config values(25, '/lottery/dl/article/relatedArticles', 1, 0, 1, '相关文章');
+insert into dl_gate_api_config values(26, '/lottery/dl/league/match/asia/list', 1, 0, 1, '亚盘信息');
+insert into dl_gate_api_config values(27, '/lottery/dl/league/match/asia/refresh', 0, 0, 1, '亚盘信息刷新');
+insert into dl_gate_api_config values(28, '/lottery/dl/league/match/dao/xiao/list', 1, 0, 1, '大小球信息');
+insert into dl_gate_api_config values(29, '/lottery/dl/league/match/europe/list', 1, 0, 1, '欧赔信息');
+insert into dl_gate_api_config values(30, '/lottery/dl/league/match/europe/refresh', 0, 0, 1, '欧赔刷新 ');
+insert into dl_gate_api_config values(31, '/lottery/dl/league/match/result/queryMatchResultByPlayCode', 0, 0, 1, '联赛结果');
+insert into dl_gate_api_config values(32, '/lottery/dl/league/match/result/queryMatchResultsByPlayCodes', 0, 0, 1, '联赛结果');
+insert into dl_gate_api_config values(33, '/lottery/dl/league/match/result/refresh', 0, 0, 1, '联赛结果刷新');
+insert into dl_gate_api_config values(34, '/lottery/dl/league/team/list', 1, 0, 1, '球队信息');
+insert into dl_gate_api_config values(35, '/lottery/dl/match/support/refresh', 0, 0, 1, '支持率的刷新');
 insert into dl_gate_api_config values(36, '/lottery/hall/getHallData', 1, 0, 1, '彩票大厅数据');
 insert into dl_gate_api_config values(37, '/lottery/hall/getHallMixData', 1, 0, 1, '获取彩票大厅数据和咨询列表数据');
 insert into dl_gate_api_config values(38, '/lottery/hall/getPlayClassifyList', 1, 0, 1, '获取彩票玩法列表');
