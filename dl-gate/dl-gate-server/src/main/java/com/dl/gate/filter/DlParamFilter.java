@@ -1,27 +1,30 @@
 package com.dl.gate.filter;
 
-import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
-import com.dl.gate.config.GateConfig;
-import com.netflix.zuul.ZuulFilter;
-import com.netflix.zuul.context.RequestContext;
-import com.netflix.zuul.http.HttpServletRequestWrapper;
-import com.netflix.zuul.http.ServletInputStreamWrapper;
-import com.dl.base.constant.CommonConstants;
-import com.dl.base.model.Address;
-import com.dl.base.result.ResultGenerator;
-import com.dl.base.util.JSONHelper;
-import lombok.extern.slf4j.Slf4j;
+import static org.springframework.cloud.netflix.zuul.filters.support.FilterConstants.PRE_TYPE;
+
+import javax.servlet.ServletInputStream;
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.http.server.ServletServerHttpRequest;
 import org.springframework.stereotype.Component;
 
-import javax.servlet.ServletInputStream;
-import javax.servlet.http.HttpServletRequest;
+import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
+import com.dl.base.constant.CommonConstants;
+import com.dl.base.model.Address;
+import com.dl.base.model.UserDeviceInfo;
+import com.dl.base.result.ResultGenerator;
+import com.dl.base.util.JSONHelper;
+import com.dl.gate.config.GateConfig;
+import com.netflix.zuul.ZuulFilter;
+import com.netflix.zuul.context.RequestContext;
+import com.netflix.zuul.http.HttpServletRequestWrapper;
+import com.netflix.zuul.http.ServletInputStreamWrapper;
 
-import static org.springframework.cloud.netflix.zuul.filters.support.FilterConstants.PRE_TYPE;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * 参数
@@ -96,6 +99,8 @@ public class DlParamFilter extends ZuulFilter {
             if (null != header) {
                 Address address = header.toJavaObject(Address.class);
                 ctx.addZuulRequestHeader(CommonConstants.HTTP_HEADER_ADDRESS, JSONHelper.bean2json(address));
+                UserDeviceInfo deviceInfo = header.toJavaObject(UserDeviceInfo.class);
+                ctx.addZuulRequestHeader(CommonConstants.HTTP_HEADER_DEVICE, JSONHelper.bean2json(deviceInfo));
             }
         } catch (Exception e) {
             log.error("请求解析失败", e);
