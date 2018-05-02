@@ -95,7 +95,7 @@ public class DlParamFilter extends ZuulFilter {
                 }
 
             });
-            JSONObject header = json.getJSONObject("header");
+            JSONObject header = json.getJSONObject("device");
             if (null != header) {
                 Address address = header.toJavaObject(Address.class);
                 ctx.addZuulRequestHeader(CommonConstants.HTTP_HEADER_ADDRESS, JSONHelper.bean2json(address));
