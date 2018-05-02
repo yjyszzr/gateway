@@ -118,3 +118,7 @@ insert into dl_gate_api_config values(95, '/member/user/validateMobile', 1, 0, 1
 insert into dl_gate_api_config values(96, '/member/login/logout', 1, 1, 1, '用户注销');
 insert into dl_gate_api_config values(97, '/member/user/bank/queryUserBankList', 1, 1, 1, '查询银行卡列表');
 insert into dl_gate_api_config values(98, '/member/user/register', 1, 0, 1, '注册');
+
+
+insert into dl_gate_api_config values(100, '/member/switch/config/query', 1, 0, 1, '查询交易版开关是否开启');
+insert into dl_gate_api_config values(101, '/payment/payment/allPayment', 1, 0, 1, '系统可用第三方支付方式');
