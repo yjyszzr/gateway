@@ -80,7 +80,7 @@ public class DlAuthFilter extends ZuulFilter {
         RequestContext ctx = RequestContext.getCurrentContext();
         HttpServletRequest request = ctx.getRequest();
         final String requestUri = request.getRequestURI().substring(zuulPrefix.length());
-        log.info("test dyp : " + requestUri);
+//        log.info("test dyp : " + requestUri);
         // 测试环境放过get请求  && "dev".equalsIgnoreCase(env)
         if (request.getMethod().equalsIgnoreCase("get")) {
             return null;
