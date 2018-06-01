@@ -122,3 +122,16 @@ insert into dl_gate_api_config values(98, '/member/user/register', 1, 0, 1, '注
 
 insert into dl_gate_api_config values(100, '/member/switch/config/query', 1, 0, 1, '查询交易版开关是否开启');
 insert into dl_gate_api_config values(101, '/payment/payment/allPayment', 1, 0, 1, '系统可用第三方支付方式');
+
+
+
+insert into dl_gate_api_config values(119, '/member/user/queryUserNotice', 1, 1, 1, '查询用户是否有未读消息提示');
+insert into dl_gate_api_config values(120, '/member/user/updateUnReadNotice', 1, 1, 1, '清除未读消息提示');
+
+
+
+
+insert into dl_gate_api_config values(120, '/lottery/dl/wc/gjs', 1, 0, 1, '冠军列表');
+insert into dl_gate_api_config values(120, '/lottery/dl/wc/gyjs', 1, 0, 1, '冠亚军列表');
+insert into dl_gate_api_config values(120, '/lottery/dl/wc/saveBetInfo', 1, 1, 1, '投注');
+insert into dl_gate_api_config values(120, '/member/user/setLoginPass', 1, 1, 1, '设置修改密码');
