@@ -131,7 +131,12 @@ insert into dl_gate_api_config values(120, '/member/user/updateUnReadNotice', 1,
 
 
 
-insert into dl_gate_api_config values(120, '/lottery/dl/wc/gjs', 1, 0, 1, '冠军列表');
-insert into dl_gate_api_config values(120, '/lottery/dl/wc/gyjs', 1, 0, 1, '冠亚军列表');
-insert into dl_gate_api_config values(120, '/lottery/dl/wc/saveBetInfo', 1, 1, 1, '投注');
-insert into dl_gate_api_config values(120, '/member/user/setLoginPass', 1, 1, 1, '设置修改密码');
+insert into dl_gate_api_config values(136, '/payment/payment/recharge/queryUserRechargeListByUserId', 1, 1, 1, '查询充值单列表');
+insert into dl_gate_api_config values(137, '/payment/payment/recharge/countUserRecharge', 1, 1, 1, '查询当前登录用户是否充值过');
+insert into dl_gate_api_config values(138, '/member/user/bonus/rechargeSucReiceiveBonus', 1, 1, 1, '领取充值送随机红包');
+insert into dl_gate_api_config values(139, '/payment/payment/queryPayLogByPayLogId', 1, 1, 1, '根据payLogId查询支付信息');
+insert into dl_gate_api_config values(140, '/lottery/dl/wc/gjs', 1, 0, 1, '冠军列表');
+insert into dl_gate_api_config values(141, '/lottery/dl/wc/gyjs', 1, 0, 1, '冠亚军列表');
+insert into dl_gate_api_config values(142, '/lottery/dl/wc/saveBetInfo', 1, 1, 1, '投注');
+insert into dl_gate_api_config values(143, '/member/user/setLoginPass', 1, 1, 1, '设置修改密码');
+insert into dl_gate_api_config values(144, '/member/donation/rechargeCard/list', 1, 0, 1, '充值卡列表');
