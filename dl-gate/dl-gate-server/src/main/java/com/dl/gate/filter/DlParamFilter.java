@@ -18,6 +18,7 @@ import com.dl.base.model.Address;
 import com.dl.base.model.UserDeviceInfo;
 import com.dl.base.result.ResultGenerator;
 import com.dl.base.util.JSONHelper;
+import com.dl.base.util.SessionUtil;
 import com.dl.gate.config.GateConfig;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
@@ -74,7 +75,9 @@ public class DlParamFilter extends ZuulFilter {
             String str = (String) converter.read(String.class, inputMessage);
 //            log.info("请求地址为：{}, 请求信息为：{}", request.getRequestURI(), str);
             JSONObject json = (JSONObject) converter.read(JSONObject.class, inputMessage);
-            log.info("请求地址为：{}, 请求信息为：{}", request.getRequestURI(), json);
+            Integer userId = SessionUtil.getUserId();
+            userId = userId==null?-1:userId;
+            log.info("用户:{},请求地址为：{}, 请求信息为：{}", userId,request.getRequestURI(), json);
             JSONObject body = json.getJSONObject("body");
             if (body == null || body.isEmpty()) {
                 body = json;
