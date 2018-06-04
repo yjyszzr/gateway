@@ -62,16 +62,13 @@ public class AccessLogFilter extends ZuulFilter {
         try {
         	FastJsonHttpMessageConverter converter = new FastJsonHttpMessageConverter();
         	ServletServerHttpRequest inputMessage = new ServletServerHttpRequest(request);
-        	JSONObject json = (JSONObject) converter.read(JSONObject.class, inputMessage);
+        	String str = (String) converter.read(String.class, inputMessage);
         	IJWTInfo user = this.getUser(request, ctx);
         	String userId = "-1";
-        	String unique = "-1";
         	if(user != null) {
         		userId = user.getUserId();
-        		unique = user.getUnique();
         	}
-        	log.info("用户id:{},用户名:{},请求地址为:{}, 请求信息为:{}", userId, unique, request.getRequestURI(), json);
-        	// log.info("in AccessLogFilter:"+url);
+        	log.info("用户id:{},请求地址为:{}, 请求信息为:{}", userId, request.getRequestURI(), str);
             stringRedisTemplate.opsForHash().increment("access:" + url, DateUtil.getCurrentDate(DateUtil.yyyyMMdd), 1);
         } catch (Exception e) {
             log.warn("增加url访问记录失败", e);
