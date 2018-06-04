@@ -4,11 +4,20 @@ import static org.springframework.cloud.netflix.zuul.filters.support.FilterConst
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.http.server.ServletServerHttpRequest;
 import org.springframework.stereotype.Component;
 
+import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
+import com.dl.base.auth.client.config.UserAuthConfig;
+import com.dl.base.auth.client.jwt.UserAuthUtil;
+import com.dl.base.context.BaseContextHandler;
 import com.dl.base.util.DateUtil;
+import com.dl.base.util.SessionUtil;
+import com.dl.base.util.jwt.IJWTInfo;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 
@@ -24,6 +33,12 @@ public class AccessLogFilter extends ZuulFilter {
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
 
+    @Autowired
+    private UserAuthConfig userAuthConfig;
+
+    @Autowired
+    private UserAuthUtil userAuthUtil;
+    
     @Override
     public String filterType() {
         return PRE_TYPE;
@@ -45,11 +60,35 @@ public class AccessLogFilter extends ZuulFilter {
         HttpServletRequest request = ctx.getRequest();
         String url = request.getRequestURI();
         try {
-//        	log.info("in AccessLogFilter:"+url);
+        	FastJsonHttpMessageConverter converter = new FastJsonHttpMessageConverter();
+        	ServletServerHttpRequest inputMessage = new ServletServerHttpRequest(request);
+        	JSONObject json = (JSONObject) converter.read(JSONObject.class, inputMessage);
+        	IJWTInfo user = this.getUser(request, ctx);
+        	String userId = "-1";
+        	String unique = "-1";
+        	if(user != null) {
+        		userId = user.getUserId();
+        		unique = user.getUnique();
+        	}
+        	log.info("用户id:{},用户名:{},请求地址为:{}, 请求信息为:{}", userId, unique, request.getRequestURI(), json);
+        	// log.info("in AccessLogFilter:"+url);
             stringRedisTemplate.opsForHash().increment("access:" + url, DateUtil.getCurrentDate(DateUtil.yyyyMMdd), 1);
         } catch (Exception e) {
             log.warn("增加url访问记录失败", e);
         }
         return null;
+    }
+    
+    private IJWTInfo getUser(HttpServletRequest request, RequestContext ctx) {
+    	String authToken = request.getHeader(userAuthConfig.getTokenHeader());
+    	if(StringUtils.isBlank(authToken)) {
+    		return null;
+    	}
+    	try {
+			BaseContextHandler.setToken(authToken);
+			return userAuthUtil.getInfoFromToken(authToken);
+		} catch (Exception e) {
+		}
+    	return null;
     }
 }

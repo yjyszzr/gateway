@@ -75,9 +75,7 @@ public class DlParamFilter extends ZuulFilter {
             String str = (String) converter.read(String.class, inputMessage);
 //            log.info("请求地址为：{}, 请求信息为：{}", request.getRequestURI(), str);
             JSONObject json = (JSONObject) converter.read(JSONObject.class, inputMessage);
-            Integer userId = SessionUtil.getUserId();
-            userId = userId==null?-1:userId;
-            log.info("用户:{},请求地址为：{}, 请求信息为：{}", userId,request.getRequestURI(), json);
+//            log.info("请求地址为：{}, 请求信息为：{}", request.getRequestURI(), json);
             JSONObject body = json.getJSONObject("body");
             if (body == null || body.isEmpty()) {
                 body = json;
