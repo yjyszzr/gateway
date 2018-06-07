@@ -97,7 +97,7 @@ public class DlAuthFilter extends ZuulFilter {
 
 
         String authToken = request.getHeader(userAuthConfig.getTokenHeader());
-//        log.info("请求地址为{}， token为{}", requestUri, authToken);
+        log.info("请求地址为{}， token为{}", requestUri, authToken);
         BaseContextHandler.setToken(null);
         // 不进行拦截的地址,直接放过
         boolean needAuth = gateConfig.needAuth(requestUri) && !"dev1".equalsIgnoreCase(env);

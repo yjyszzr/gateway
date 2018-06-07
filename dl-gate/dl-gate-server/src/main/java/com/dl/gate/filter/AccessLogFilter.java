@@ -63,8 +63,9 @@ public class AccessLogFilter extends ZuulFilter {
         	FastJsonHttpMessageConverter converter = new FastJsonHttpMessageConverter();
         	ServletServerHttpRequest inputMessage = new ServletServerHttpRequest(request);
         	String str = (String) converter.read(String.class, inputMessage);
-        	IJWTInfo user = this.getUser(request, ctx);
         	String userId = "-1";
+        	IJWTInfo user = this.getUser(request, ctx);
+        	BaseContextHandler.setToken(null);
         	if(user != null) {
         		userId = user.getUserId();
         	}
