@@ -72,7 +72,7 @@ public class DlParamFilter extends ZuulFilter {
             FastJsonHttpMessageConverter converter = new FastJsonHttpMessageConverter();
             ServletServerHttpRequest inputMessage = new ServletServerHttpRequest(request);
             ctx.addZuulRequestHeader("content-type", MediaType.APPLICATION_JSON_VALUE);
-            String str = (String) converter.read(String.class, inputMessage);
+//            String str = (String) converter.read(String.class, inputMessage);
 //            log.info("请求地址为：{}, 请求信息为：{}", request.getRequestURI(), str);
             JSONObject json = (JSONObject) converter.read(JSONObject.class, inputMessage);
 //            log.info("请求地址为：{}, 请求信息为：{}", request.getRequestURI(), json);
