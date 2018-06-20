@@ -63,6 +63,11 @@ public class AccessLogFilter extends ZuulFilter {
         HttpServletRequest request = ctx.getRequest();
         String url = request.getRequestURI();
         try {
+            stringRedisTemplate.opsForHash().increment("access:" + url, DateUtil.getCurrentDate(DateUtil.yyyyMMdd), 1);
+        } catch (Exception e) {
+            log.warn("增加url访问记录失败", e);
+        }
+        try {
         	FastJsonHttpMessageConverter converter = new FastJsonHttpMessageConverter();
         	ServletServerHttpRequest inputMessage = new ServletServerHttpRequest(request);
         	String str = (String) converter.read(String.class, inputMessage);
@@ -74,9 +79,8 @@ public class AccessLogFilter extends ZuulFilter {
         	}
         	String ip = this.getIpAddr(request);
         	log.info("用户id:{},用户ip:{},请求地址为:{}, 请求信息为:{}", userId,ip==null?"":ip, request.getRequestURI(), str);
-            stringRedisTemplate.opsForHash().increment("access:" + url, DateUtil.getCurrentDate(DateUtil.yyyyMMdd), 1);
-        } catch (Exception e) {
-            log.warn("增加url访问记录失败", e);
+        }catch(Exception e) {
+        	 log.warn("记录用户请求日志失败", e);
         }
         return null;
     }
