@@ -80,7 +80,7 @@ public class AccessLogFilter extends ZuulFilter {
         	String ip = this.getIpAddr(request);
         	log.info("用户id:{},用户ip:{},请求地址为:{}, 请求信息为:{}", userId,ip==null?"":ip, request.getRequestURI(), str);
         }catch(Exception e) {
-        	 log.warn("记录用户请求日志失败", e);
+        	 log.warn("记录用户请求日志失败, url="+url, e);
         }
         return null;
     }
