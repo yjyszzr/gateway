@@ -117,6 +117,7 @@ public class DlAuthFilter extends ZuulFilter {
                 return null;
             } else {
                 Long time = Long.parseLong(value.toString());
+                log.warn("判断是否超时所用时间为："+ (System.currentTimeMillis() - time));
                 if (System.currentTimeMillis() - time > MAX_TIME) {
                     stringRedisTemplate.opsForHash().delete(USER_SESSION_PREFIX + jwtUser.getUserId(), jwtUser.getUnique());
                     if (needAuth) {
