@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.http.server.ServletServerHttpRequest;
 import org.springframework.stereotype.Component;
@@ -21,6 +22,7 @@ import com.dl.base.context.BaseContextHandler;
 import com.dl.base.util.DateUtil;
 import com.dl.base.util.SessionUtil;
 import com.dl.base.util.jwt.IJWTInfo;
+import com.dl.gate.config.GateConfig;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 
@@ -41,6 +43,12 @@ public class AccessLogFilter extends ZuulFilter {
 
     @Autowired
     private UserAuthUtil userAuthUtil;
+    
+    @Autowired
+    private GateConfig gateConfig;
+    
+    @Value("${zuul.prefix}")
+    private String zuulPrefix;
     
     @Override
     public String filterType() {
@@ -67,20 +75,25 @@ public class AccessLogFilter extends ZuulFilter {
         } catch (Exception e) {
             log.warn("增加url访问记录失败", e);
         }
-        try {
-        	FastJsonHttpMessageConverter converter = new FastJsonHttpMessageConverter();
-        	ServletServerHttpRequest inputMessage = new ServletServerHttpRequest(request);
-        	String str = (String) converter.read(String.class, inputMessage);
-        	String userId = "-1";
-        	IJWTInfo user = this.getUser(request, ctx);
-        	BaseContextHandler.setToken(null);
-        	if(user != null) {
-        		userId = user.getUserId();
+        String apiUrl = url.substring(zuulPrefix.length());
+        if (gateConfig.notTransParam(apiUrl)) {
+        	log.info("不需要解析参数：url=" + url);
+        }else {
+        	try {
+        		FastJsonHttpMessageConverter converter = new FastJsonHttpMessageConverter();
+        		ServletServerHttpRequest inputMessage = new ServletServerHttpRequest(request);
+        		String str = (String) converter.read(String.class, inputMessage);
+        		String userId = "-1";
+        		IJWTInfo user = this.getUser(request, ctx);
+        		BaseContextHandler.setToken(null);
+        		if(user != null) {
+        			userId = user.getUserId();
+        		}
+        		String ip = this.getIpAddr(request);
+        		log.info("用户id:{},用户ip:{},请求地址为:{}, 请求信息为:{}", userId,ip==null?"":ip, request.getRequestURI(), str);
+        	}catch(Exception e) {
+        		log.error("记录用户请求日志失败, url="+url, e);
         	}
-        	String ip = this.getIpAddr(request);
-        	log.info("用户id:{},用户ip:{},请求地址为:{}, 请求信息为:{}", userId,ip==null?"":ip, request.getRequestURI(), str);
-        }catch(Exception e) {
-        	 log.warn("记录用户请求日志失败, url="+url, e);
         }
         return null;
     }

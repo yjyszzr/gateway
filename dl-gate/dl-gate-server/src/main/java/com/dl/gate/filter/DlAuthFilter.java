@@ -118,6 +118,7 @@ public class DlAuthFilter extends ZuulFilter {
             } else {
                 Long time = Long.parseLong(value.toString());
                 if (System.currentTimeMillis() - time > MAX_TIME) {
+                	request.getSession().removeAttribute("user_token");
                     stringRedisTemplate.opsForHash().delete(USER_SESSION_PREFIX + jwtUser.getUserId(), jwtUser.getUnique());
                     if (needAuth) {
                         setLoginResult(ctx);
@@ -125,6 +126,7 @@ public class DlAuthFilter extends ZuulFilter {
                     return null;
                 } else {
                     stringRedisTemplate.opsForHash().put(USER_SESSION_PREFIX + jwtUser.getUserId(), jwtUser.getUnique(), "" + System.currentTimeMillis());
+                    request.getSession().setAttribute("user_token", authToken);
                     setToken(ctx, authToken);
                 }
             }
