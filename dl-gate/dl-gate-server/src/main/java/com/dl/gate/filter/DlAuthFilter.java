@@ -57,7 +57,7 @@ public class DlAuthFilter extends ZuulFilter {
     @Autowired
     private GateConfig gateConfig;
 
-    private static final long MAX_TIME = 1000L * 60L * 60L * 24L;
+    private static final long MAX_TIME = 10L * 1000L;
 
     @Override
     public String filterType() {
@@ -97,15 +97,18 @@ public class DlAuthFilter extends ZuulFilter {
 
 
         String authToken = request.getHeader(userAuthConfig.getTokenHeader());
-//        log.info("请求地址为{}， token为{}", requestUri, authToken);
+        log.info("111111请求地址为{}， token为{}", requestUri, authToken);
         BaseContextHandler.setToken(null);
         // 不进行拦截的地址,直接放过
         boolean needAuth = gateConfig.needAuth(requestUri) && !"dev1".equalsIgnoreCase(env);
+        log.info("22222needAuth："+needAuth);
         try {
             if (StringUtils.isBlank(authToken)) {
                 if (needAuth) {
                     setLoginResult(ctx);
                 }
+                log.info("");
+                log.warn("判断是否超时登录的value为空11");
                 return null;
             }
             IJWTInfo jwtUser = getJWTUser(authToken, ctx);
@@ -114,9 +117,11 @@ public class DlAuthFilter extends ZuulFilter {
                 if (needAuth) {
                     setLoginResult(ctx);
                 }
+                log.warn("判断是否超时登录的value为空22");
                 return null;
             } else {
                 Long time = Long.parseLong(value.toString());
+                log.warn("判断是否超时所用时间为33："+ (System.currentTimeMillis() - time));
                 if (System.currentTimeMillis() - time > MAX_TIME) {
                 	request.getSession().removeAttribute("user_token");
                     stringRedisTemplate.opsForHash().delete(USER_SESSION_PREFIX + jwtUser.getUserId(), jwtUser.getUnique());
