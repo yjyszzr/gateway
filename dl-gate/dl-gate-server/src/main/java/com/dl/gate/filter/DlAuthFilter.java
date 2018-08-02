@@ -57,7 +57,7 @@ public class DlAuthFilter extends ZuulFilter {
     @Autowired
     private GateConfig gateConfig;
 
-    private static final long MAX_TIME = 10L * 1000L;
+    private static final long MAX_TIME = 5*24*60*60 * 1000L;
 
     @Override
     public String filterType() {
