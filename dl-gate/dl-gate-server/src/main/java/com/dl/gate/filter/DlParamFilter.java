@@ -100,6 +100,7 @@ public class DlParamFilter extends ZuulFilter {
             });
             JSONObject header = json.getJSONObject("device");
             if (null != header) {
+            	log.info("[run]" + " header -> " + header);
                 Address address = header.toJavaObject(Address.class);
                 ctx.addZuulRequestHeader(CommonConstants.HTTP_HEADER_ADDRESS, JSONHelper.bean2json(address));
                 UserDeviceInfo deviceInfo = header.toJavaObject(UserDeviceInfo.class);
