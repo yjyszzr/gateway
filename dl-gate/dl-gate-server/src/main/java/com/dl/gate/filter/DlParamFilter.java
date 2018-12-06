@@ -11,6 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.server.ServletServerHttpRequest;
 import org.springframework.stereotype.Component;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import com.dl.base.constant.CommonConstants;
@@ -103,8 +104,9 @@ public class DlParamFilter extends ZuulFilter {
             	log.info("[run]" + " header -> " + header);
                 Address address = header.toJavaObject(Address.class);
                 ctx.addZuulRequestHeader(CommonConstants.HTTP_HEADER_ADDRESS, JSONHelper.bean2json(address));
-                UserDeviceInfo deviceInfo = header.toJavaObject(UserDeviceInfo.class);
+                UserDeviceInfo deviceInfo = JSON.parseObject(header.toJSONString(), UserDeviceInfo.class);
                 ctx.addZuulRequestHeader(CommonConstants.HTTP_HEADER_DEVICE, JSONHelper.bean2json(deviceInfo));
+                log.info("[run]" + " result -> " + JSON.toJSONString(deviceInfo));
             }
         } catch (Exception e) {
             log.error("请求解析失败", e);
