@@ -108,7 +108,7 @@ public class DlParamFilter extends ZuulFilter {
                 ctx.addZuulRequestHeader(CommonConstants.HTTP_HEADER_ADDRESS, JSONHelper.bean2json(address));
                 UserDeviceInfo deviceInfo = JSON.parseObject(header.toJSONString(), UserDeviceInfo.class);
                 //URLEncoder.encode(JSONObject.toJSONString(obj), "UTF-8")
-                ctx.addZuulRequestHeader(CommonConstants.HTTP_HEADER_DEVICE,URLEncoder.encode(header.toJSONString(),"UTF-8"));
+                ctx.addZuulRequestHeader(CommonConstants.HTTP_HEADER_DEVICE,header.toJSONString());
                 log.info("[run]" + " result -> " + JSON.toJSONString(deviceInfo));
             }
         } catch (Exception e) {
