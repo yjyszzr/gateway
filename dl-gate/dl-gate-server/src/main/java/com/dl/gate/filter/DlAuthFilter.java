@@ -112,6 +112,7 @@ public class DlAuthFilter extends ZuulFilter {
                 return null;
             }
             IJWTInfo jwtUser = getJWTUser(authToken, ctx);
+            log.info("ctx 中的userId："+jwtUser.getUserId());
             Object value = stringRedisTemplate.opsForHash().get(USER_SESSION_PREFIX + jwtUser.getUserId(), jwtUser.getUnique());
             if (null == value) {
                 if (needAuth) {
