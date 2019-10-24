@@ -107,7 +107,7 @@
         </dependency> -->
     </dependencies>
     <build>
-        <finalName>dl-gate</finalName>
+       <!-- <finalName>dl-gate</finalName>-->
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
