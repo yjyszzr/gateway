@@ -49,7 +49,7 @@
 
     <!-- 生产环境，配置sentry用来收集日志-->
     <appender name="sentry-prod" class="com.getsentry.raven.logback.SentryAppender">
-        <dsn>http://a0b2b91879174fb8a81324618e56f060:72a05ed7cf7e4d07b1bcd7fccb100b95@49.232.65.109:9000/6</dsn>
+        <dsn>http://a0b2b91879174fb8a81324618e56f060:72a05ed7cf7e4d07b1bcd7fccb100b95@49.232.65.109:9000/6?raven.timeout=30000</dsn>
         <tags>tag1:value1,tag2:value2</tags>
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
             <level>WARN</level>
