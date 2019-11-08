@@ -23,7 +23,6 @@
         </filter>
     </appender>
 
-
     <appender name="rollingFileERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${LOG_DIR}/error/gate-error.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
