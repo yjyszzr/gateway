@@ -64,7 +64,7 @@
 
     <!-- 开发、测试环境日志配置-->
     <springProfile name="dev">
-        <root level="INFO">
+        <root level="info">
             <appender-ref ref="console"/>
             <appender-ref ref="rollingFileINFO"/>
             <appender-ref ref="rollingFileERROR"/>
@@ -74,7 +74,7 @@
 
     <!-- 生产环境日志配置-->
     <springProfile name="prod">
-        <root level="INFO">
+        <root level="info">
             <appender-ref ref="console"/>
             <appender-ref ref="rollingFileINFO"/>
             <appender-ref ref="rollingFileERROR"/>
