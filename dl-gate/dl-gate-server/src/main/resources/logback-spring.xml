@@ -9,7 +9,7 @@
     </appender>
 
     <appender name="rollingFileINFO" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${LOG_DIR}/info/gate-info.log</file>
+        <file>${LOG_DIR}/gate-info.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>${LOG_DIR}/info/gate-info.%d{yyyy-MM-dd}.log</fileNamePattern>
             <maxHistory>30</maxHistory>
@@ -24,7 +24,7 @@
     </appender>
 
     <appender name="rollingFileERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${LOG_DIR}/error/gate-error.log</file>
+        <file>${LOG_DIR}/gate-error.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>${LOG_DIR}/error/gate-error.%d{yyyy-MM-dd}.log</fileNamePattern>
             <maxHistory>30</maxHistory>
