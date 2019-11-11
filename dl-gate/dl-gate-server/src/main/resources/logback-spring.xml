@@ -40,7 +40,7 @@
 
     <!-- 测试环境，配置sentry用来收集日志-->
     <appender name="sentry-dev" class="com.getsentry.raven.logback.SentryAppender">
-        <dsn>http://655f3ea77c484d119062dce5b60de22f:b7dcc1f60f7e484f9b84c6c273a00519@49.232.65.109:9000/5?raven.timeout=30000</dsn>
+        <dsn>http://655f3ea77c484d119062dce5b60de22f:b7dcc1f60f7e484f9b84c6c273a00519@49.232.65.109:9000/5</dsn>
         <tags>tag1:value1,tag2:value2</tags>
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
             <level>WARN</level>
@@ -49,7 +49,16 @@
 
     <!-- 生产环境，配置sentry用来收集日志-->
     <appender name="sentry-prod" class="com.getsentry.raven.logback.SentryAppender">
-        <dsn>http://a0b2b91879174fb8a81324618e56f060:72a05ed7cf7e4d07b1bcd7fccb100b95@49.232.65.109:9000/6?raven.timeout=30000</dsn>
+        <dsn>http://a0b2b91879174fb8a81324618e56f060:72a05ed7cf7e4d07b1bcd7fccb100b95@49.232.65.109:9000/6</dsn>
+        <tags>tag1:value1,tag2:value2</tags>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>WARN</level>
+        </filter>
+    </appender>
+
+    <!-- 生产环境228，配置sentry用来收集日志-->
+    <appender name="sentry-every" class="com.getsentry.raven.logback.SentryAppender">
+        <dsn>http://8dead625d86246c0a2397bc485b4d652:9e020db8c6554fd48dec6dcd4ff3c687@49.232.65.109:9000/28</dsn>
         <tags>tag1:value1,tag2:value2</tags>
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
             <level>WARN</level>
@@ -73,6 +82,16 @@
 
     <!-- 生产环境日志配置-->
     <springProfile name="prod">
+        <root level="info">
+            <appender-ref ref="console"/>
+            <appender-ref ref="rollingFileINFO"/>
+            <appender-ref ref="rollingFileERROR"/>
+            <appender-ref ref="sentry-prod"/>
+        </root>
+    </springProfile>
+
+    <!-- 生产环境日志配置228-->
+    <springProfile name="every">
         <root level="info">
             <appender-ref ref="console"/>
             <appender-ref ref="rollingFileINFO"/>
