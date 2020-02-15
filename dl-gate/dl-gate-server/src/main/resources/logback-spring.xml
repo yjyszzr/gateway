@@ -38,23 +38,23 @@
         </filter>
     </appender>
 
-    <!-- 测试环境，配置sentry用来收集日志-->
-    <appender name="sentry-dev" class="com.getsentry.raven.logback.SentryAppender">
+     <!-- 测试环境，配置sentry用来收集日志-->
+<!--    <appender name="sentry-dev" class="com.getsentry.raven.logback.SentryAppender">
         <dsn>http://f2e61b94e8a7496b9c7dda224902de58:b3e5c63d89704109883ee74a6dd95439@49.232.65.109:9000/61</dsn>
         <tags>tag1:value1,tag2:value2</tags>
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
             <level>ERROR</level>
         </filter>
-    </appender>
+    </appender> -->
 
     <!-- 生产环境，配置sentry用来收集日志-->
-    <appender name="sentry-prod" class="com.getsentry.raven.logback.SentryAppender">
+<!--    <appender name="sentry-prod" class="com.getsentry.raven.logback.SentryAppender">
         <dsn>http://fef02f5dfa674eb8be321c97b916f811:53afc8bcb810441fb8a2fca93884f693@49.232.65.109:9000/62</dsn>
         <tags>tag1:value1,tag2:value2</tags>
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
             <level>ERROR</level>
         </filter>
-    </appender>
+    </appender> -->
 
     <logger name="com.pgt.shop.gate" level="INFO"/>
     <logger name="org.springframework" level="INFO"/>
@@ -67,7 +67,7 @@
             <appender-ref ref="console"/>
             <appender-ref ref="rollingFileINFO"/>
             <appender-ref ref="rollingFileERROR"/>
-            <appender-ref ref="sentry-dev"/>
+<!--             <appender-ref ref="sentry-dev"/> -->
         </root>
     </springProfile>
 
@@ -77,7 +77,7 @@
             <appender-ref ref="console"/>
             <appender-ref ref="rollingFileINFO"/>
             <appender-ref ref="rollingFileERROR"/>
-            <appender-ref ref="sentry-prod"/>
+<!--             <appender-ref ref="sentry-prod"/> -->
         </root>
     </springProfile>
 </configuration>
